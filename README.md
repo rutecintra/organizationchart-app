@@ -26,29 +26,7 @@ An interactive app for organization chart with drag-and-drop functionality, deve
  - Pydantic
  - SQLAlchemy
 
-## Project Structure
-
-organograma/
-├── backend/
-│ ├── main.py
-│ ├── database.py
-│ ├── requirements.txt
-│ └── employees.db
-├── frontend/
-│ ├── public/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── hooks/
-│ │ ├── App.css
-│ │ ├── App.tsx
-│ │ ├── main.tsx
-│ │ └── vite-env.d.ts
-│ ├── package.json
-│ ├── tsconfig.json
-│ └── vite.config.ts
-└── README.md
-
-## Como Executar
+## How to Run
 
 ### Backend
 
