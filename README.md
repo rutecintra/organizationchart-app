@@ -14,17 +14,17 @@ An interactive app for organization chart with drag-and-drop functionality, deve
 
 ## Technologies
 
-- **Frontend:**
- -- React (Vite)
- -- TypeScript
- -- react-beautiful-dnd
- -- Axios
+**Frontend:**
+ - React (Vite)
+ - TypeScript
+ - react-beautiful-dnd
+ - Axios
 
-- **Backend:**
- -- FastAPI
- -- SQLite
- -- Pydantic
- -- SQLAlchemy
+**Backend:**
+ - FastAPI
+ - SQLite
+ - Pydantic
+ - SQLAlchemy
 
 ## How to Run
 
@@ -58,7 +58,7 @@ uvicorn main:app --reload
 cd frontend
 ```
 
-2. nstall the dependencies:
+2. Install the dependencies:
 ```bash
 npm install
 ```
