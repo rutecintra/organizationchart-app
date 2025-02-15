@@ -18,15 +18,32 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+## Frontend Setup
+
+1. Navigate to the frontend folder:
+```bash
+cd frontend
+```
+
+2. Instale dependências:
+```bash
+npm install
+```
+
+3. Execute o servidor de desenvolvimento:
+```bash
+npm run dev
+```
+
 ## Endpoints
 
-### GET `/employees`
+**GET `/employees`**
 Returns list of employees
 
-### PUT `/employees/updatemanager`
+**PUT `/employees/updatemanager`**
 Updates an employee's manager
 
-**Request Body:**
+*Request Body:*
 ```json
 {
     "employee_id": 1,
@@ -34,7 +51,7 @@ Updates an employee's manager
 }
 ```
 
-**Answers:**
+*Answers:*
 | Status      | Message               |
 |------------|------------------------|
 | 200        | Manager updated successfully |
