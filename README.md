@@ -18,14 +18,26 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-## Available endpoints
+## Endpoints
 
-GET `/employees` - Returns list of employees
+### GET `/employees`
+Returns list of employees
 
-```bash
+### PUT `/employees/updatemanager`
+Updates an employee's manager
 
-**For test:**
-1. Run the server
-2. Access http://localhost:8000/employees
-3. You should see the JSON with the 3 initial employees
+**Request Body:**
+```json
+{
+    "employee_id": 1,
+    "new_manager_id": 2
+}
 ```
+
+**Answers:**
+| Status      | Message               |
+|------------|------------------------|
+| 200        | Manager updated successfully |
+| 400        | Validation error |
+| 404        | ID not found |
+| 500        | Internal error |
