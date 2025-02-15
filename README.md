@@ -15,16 +15,16 @@ An interactive app for organization chart with drag-and-drop functionality, deve
 ## Technologies
 
 - **Frontend:**
- - React (Vite)
- - TypeScript
- - react-beautiful-dnd
- - Axios
+ -- React (Vite)
+ -- TypeScript
+ -- react-beautiful-dnd
+ -- Axios
 
 - **Backend:**
- - FastAPI
- - SQLite
- - Pydantic
- - SQLAlchemy
+ -- FastAPI
+ -- SQLite
+ -- Pydantic
+ -- SQLAlchemy
 
 ## How to Run
 
