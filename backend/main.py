@@ -2,10 +2,20 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from database import engine, SessionLocal, EmployeeDB
-
-EmployeeDB.metadata.create_all(bind=engine)
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"]
+)
+
+EmployeeDB.metadata.create_all(bind=engine)
 
 class Employee(BaseModel):
     id: int
@@ -41,13 +51,20 @@ def statup_event():
         db.commit()
     db.close()
 
-@app.get("/")
-async def home():
-    return {"status": "available"}
+# @app.get("/")
+# async def home():
+#     return {"status": "available"}
 
 @app.get("/employees", response_model = list[Employee])
 def get_employees(db: Session = Depends(get_db)):
-    return db.query(EmployeeDB).all()
+    try:
+        print("Iniciando consulta ao banco...")
+        employees = db.query(EmployeeDB).all()
+        print(f"Encontrados {len(employees)} funcionários")
+        return employees
+    except Exception as e:
+        print(f"ERRO NA CONSULTA: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.put("/employees/updatemanager", response_model = dict)
 def update_manager(
