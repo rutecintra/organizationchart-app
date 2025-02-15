@@ -2,7 +2,7 @@
 
 An interactive app for organization chart with drag-and-drop functionality, developed with React (frontend) and FastAPI (backend).
 
-![Organization Chart App Demo](frontend\public\chartsapp.png)
+![Organization Chart App Demo](frontend/public/chartsapp.png)
 
 ## Features
 
