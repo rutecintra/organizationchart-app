@@ -45,7 +45,7 @@ def statup_event():
             EmployeeDB(id = 1, name = "Leticya Maria", title = "CEO", manager_id = None),
             EmployeeDB(id = 2, name = "Ronald Oliveira", title = "CTO", manager_id = 1),
             EmployeeDB(id = 3, name = "Sarah Silva", title = "Software Engineer", manager_id = 2),
-            EmployeeDB(id = 4, name = "Mariana Barbosa", title = "Intern", manager_id = 3)
+            EmployeeDB(id = 4, name = "Mariana Barbosa", title = "Trainee", manager_id = 3)
         ]
         db.add_all(initial_data)
         db.commit()

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { DragDropContext, DropResult } from '@hello-pangea/dnd'
 import { useEmployees, Employee } from './hooks/useEmployees'
 import { EmployeeNode } from './components/EmployeeNode'
@@ -6,8 +6,14 @@ import { NoManagerArea } from './components/NoManagerArea'
 import './App.css'
 
 function App() {
-  const { employees, loading, error, updateEmployeeManager } = useEmployees()
-  const hasTopLevel = employees.some(e => e.manager_id === null)
+  const { employees, loading, error, updateEmployeeManager } = useEmployees();
+  const hasTopLevel = employees.some(e => e.manager_id === null);
+  const [message, setMessage] = useState("");
+  
+  const showMessage = (text: string) => {
+    setMessage(text);
+    setTimeout(() => setMessage(""), 2000);
+  }
 
   const onDragEnd = async (result: DropResult) => {
     const { destination, source, draggableId } = result
@@ -28,6 +34,7 @@ function App() {
     }
 
     try {
+      showMessage("Updating organization chart...");
       const newManagerId = destination.droppableId === 'no-manager' ? 
         null : 
         parseInt(destination.droppableId)
@@ -37,9 +44,12 @@ function App() {
       }
 
       await updateEmployeeManager(parseInt(draggableId), newManagerId)
+
+      showMessage("Organization chart successfully updated!");
       
     } catch (error) {
-      // toast.error('Error updating manager')
+      showMessage("Error updating manager.");
+      console.error("Update error:", error);
     }
   }
 
@@ -87,6 +97,8 @@ function App() {
 
   return (
     <>
+      {message && <p className="status-message">{message}</p>}
+
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="app-container">
           <NoManagerArea hasTopLevel={hasTopLevel} />
