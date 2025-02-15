@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import api from '../services/api'
 
-interface Employee {
-  id: number
-  name: string
-  title: string
-  manager_id: number | null
+export interface Employee {
+  id: number;
+  name: string;
+  title: string;
+  manager_id: number | null;
 }
 
 export const useEmployees = () => {
@@ -29,5 +29,31 @@ export const useEmployees = () => {
     fetchEmployees()
   }, [])
 
-  return { employees, loading, error }
+  const updateEmployeeManager = async (employeeId: number, newManagerId: number | null) => {
+    try {
+      setLoading(true)
+      
+      await api.put('/employees/updatemanager', {
+        employee_id: employeeId,
+        new_manager_id: newManagerId
+      })
+
+      setEmployees(prev => prev.map(emp => 
+        emp.id === employeeId ? { ...emp, manager_id: newManagerId } : emp
+      ))
+
+    } catch (err) {
+      setError('Failed to update manager')
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return { 
+    employees, 
+    loading, 
+    error,
+    updateEmployeeManager
+  }
 }

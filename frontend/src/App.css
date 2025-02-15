@@ -1,42 +1,115 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  margin: 0;
+  display: block;
+}
+
+h2.top-level-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: right;
+  color: #2c3e50;
+  letter-spacing: 1px;
+  padding: 15px;
+  border: 2px solid #ddd;
+  display: inline-block;
+  margin: 50px;
+}
+
+.container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.org-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+}
+
+.node-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.node {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 200px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.node-content h3 {
+  margin: 0;
+  color: #2c3e50;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.node-content p {
+  margin: 0;
+  color: #7f8c8d;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.children {
+  display: flex;
+  margin-top: 2rem;
+  position: relative;
 }
 
-.card {
-  padding: 2em;
+.connector {
+  position: absolute;
+  top: -20px;
+  height: 20px;
+  width: 2px;
+  background: #bdc3c7;
 }
 
-.read-the-docs {
-  color: #888;
+.children::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: calc(100% - 40px);
+  height: 2px;
+  background: #bdc3c7;
+  transform: translateX(-50%);
+}
+
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.droppable-area {
+  min-height: 50px;
+  transition: background-color 0.2s ease;
+}
+
+.droppable-area.dragging-over {
+  background-color: #f0f0f0;
+}
+
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+.Toastify__toast--success {
+  background: #38a169;
+}
+
+.Toastify__toast--error {
+  background: #e53e3e;
 }

@@ -58,35 +58,30 @@ def statup_event():
 @app.get("/employees", response_model = list[Employee])
 def get_employees(db: Session = Depends(get_db)):
     try:
-        print("Iniciando consulta ao banco...")
         employees = db.query(EmployeeDB).all()
-        print(f"Encontrados {len(employees)} funcionários")
         return employees
     except Exception as e:
-        print(f"ERRO NA CONSULTA: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.put("/employees/updatemanager", response_model = dict)
-def update_manager(
-    request: UpdateManagerRequest,
-    db: Session = Depends(get_db)
-):
-    employee = db.query(EmployeeDB).get(request.employee_id)
-    if not employee:
-        raise HTTPException(status_code = 404, detail = "Employee not found")
-    
-    if request.new_manager_id is not None:
-        new_manager = db.query(EmployeeDB).get(request.new_manager_id)
-        if not new_manager:
-            raise HTTPException(status_code = 404, detail = "New manager not found")
-        if new_manager.id == employee.id:
-            raise HTTPException(status_code = 400, detail = "Cannot be own manager")
-    
+async def update_manager(request: UpdateManagerRequest, db: Session = Depends(get_db)):
     try:
+        employee = db.query(EmployeeDB).get(request.employee_id)
+        if not employee:
+            raise HTTPException(status_code=404, detail="Employee not found")
+
+        if request.new_manager_id is not None:
+            new_manager = db.query(EmployeeDB).get(request.new_manager_id)
+            if not new_manager:
+                raise HTTPException(status_code=404, detail="New manager not found")
+            if new_manager.id == employee.id:
+                raise HTTPException(status_code=400, detail="Cannot be own manager")
+
         employee.manager_id = request.new_manager_id
         db.commit()
-        return {"message": "Manager updated successfully!"}
+        
+        return {"message": "Manager updated successfully"}
     
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code = 500, detail = "Database update failed") from e
+        raise HTTPException(status_code=500, detail="Database update failed")
