@@ -5,6 +5,12 @@ import { EmployeeNode } from './components/EmployeeNode'
 import { NoManagerArea } from './components/NoManagerArea'
 import './App.css'
 
+// TODO: Confirmation before moving
+// TODO: Change history
+// TODO: Moving more than one to the top
+// TODO: Do not allow top to be empty
+// TODO: Improve the movement of a card to a manager, when this manager already has a subordinate
+
 function App() {
   const { employees, loading, error, updateEmployeeManager } = useEmployees();
   const hasTopLevel = employees.some(e => e.manager_id === null);
